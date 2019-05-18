@@ -1,0 +1,12 @@
+# Vundle.vim
+# YouCompleteMe
+# ale
+# command-t
+# editorconfig-vim
+# lightline.vim
+# nerdtree
+# nerdtree-git-plugin
+# sparkup
+# syntastic
+# vim-dream
+# vim-fugitive
