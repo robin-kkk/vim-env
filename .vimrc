@@ -25,6 +25,7 @@ set ruler
 set incsearch
 set statusline=\ %<%l:%v\ [%P]%=%a\ %h%m%r\ %F\
 set encoding=utf-8
+set paste
 
 au BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
