@@ -1,3 +1,4 @@
+``` text
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'crusoexia/vim-dream'                  " Theme
 Plugin 'tpope/vim-fugitive'                   " vim에서 git 명령어 실행, Usage :Git commit, :Git rebase -i, :Git log, :Git diff
@@ -25,3 +26,4 @@ Plugin 'vim-syntastic/syntastic'              " 문법 체크
 Plugin 'diepm/vim-rest-console'               " 버퍼에서 REST API 호출 결과 확인, Usage: set ft=rest
 Plugin 'wincent/ferret'                       " 여러 파일에서 문자열 검색,  Usage: Ack {pattern} {options}
 Plugin 'schickling/vim-bufonly'               " 현재 버퍼만 남기고 모든 버퍼 삭제, Usage :Bonly, :BOnly, :Bufonly
+```
