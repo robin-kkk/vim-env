@@ -71,8 +71,9 @@ Plugin 'schickling/vim-bufonly'               " 현재 버퍼만 남기고 모�
 call vundle#end()
 filetype plugin indent on
 
-nmap <C-x> :TagbarToggle<CR>
 
+" Shortcut
+nmap <C-x> :TagbarToggle<CR>
 map <C-d> :NERDTreeToggle<CR>
 map <C-w> <C-w><C-w>
 map <C-t> :tabnext<CR>
@@ -81,11 +82,13 @@ map <C-c> :tabclose<CR>
 " :tabfind <Tab key>, :tabs
 colorscheme dream
 
+
 " Syntax
 execute pathogen#infect()
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
 
 " for syntastic
 let g:syntastic_html_tidy_ignore_errors=[
@@ -125,8 +128,10 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 
+
 " for vim-flake8
 let g:flake8_show_in_file=1   " show
+
 
 " for ag.vim
 if executable('ag')
@@ -142,6 +147,11 @@ else
     \ }
 endif
 
+
+" for vim-markdown
+let g:vim_markdown_folding_disabled = 1
+
+
 " for indentline
 let g:indentLine_color_gui = '#385900'
 let g:indentLine_color_term = 100
@@ -154,7 +164,8 @@ let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
 let g:indentLine_maxLines = 3000
 nnoremap \il :IndentLinesToggle
 
-" tabular
+
+" for tabular
 inoremap     :call align()a
 function! s:align()
 let p = '^\s*|\s.*\s|\s*$'
@@ -166,6 +177,7 @@ if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
 endif
 endfunction
+
 
 " for coc.nvim
 " TextEdit might fail if hidden is not set.
