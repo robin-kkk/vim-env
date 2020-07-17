@@ -76,7 +76,9 @@ nmap <C-x> :TagbarToggle<CR>
 map <C-d> :NERDTreeToggle<CR>
 map <C-w> <C-w><C-w>
 map <C-t> :tabnext<CR>
-" :tabfind <Tab key>, :tabclose, :tabs
+map <C-n> :tabnew<CR
+map <C-c> :tabclose<CR>
+" :tabfind <Tab key>, :tabs
 colorscheme dream
 
 " Syntax
