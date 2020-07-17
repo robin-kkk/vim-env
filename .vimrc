@@ -59,7 +59,7 @@ Plugin 'https://github.com/nvie/vim-flake8'   " for python (pep8)
 Plugin 'davidhalter/jedi-vim'                 " for python
 Plugin 'Yggdroot/indentLine'                  " for vertical line of indentation
 Plugin 'rking/ag.vim'                         " Search keyword, Usage :Ag [options] {pattern} [{directory}]
-Plugin 'plasticboy/vim-markdown'              " for markdown format
+Plugin 'plasticboy/vim-markdown'              " for markdown format, Usage :Toc, :InsertNToc, :InsertToc
 Plugin 'elzr/vim-json'                        " for json
 Plugin 'chrisbra/csv.vim'                     " for csv
 Plugin 'godlygeek/tabular'                    " 특정 문자로 라인 정렬, Usage: Tab \<character>
@@ -75,7 +75,8 @@ nmap <C-x> :TagbarToggle<CR>
 
 map <C-d> :NERDTreeToggle<CR>
 map <C-w> <C-w><C-w>
-
+map <C-t> :tabnext<CR>
+" :tabfind <Tab key>, :tabclose, :tabs
 colorscheme dream
 
 " Syntax
