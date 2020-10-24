@@ -57,4 +57,4 @@ source ~/.zshrc
 # pyenv install/uninstall <version>
 # pyenv virtualenv <version> <venv-name>
 # pyenv activate <venv-name>
-# deactivate
+# source deactivate
