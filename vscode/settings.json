@@ -1,0 +1,7 @@
+{
+    "C_Cpp.updateChannel": "Insiders",
+    "terminal.external.osxExec": "Terminal.app",
+    "terminal.integrated.automationShell.osx": "/bin/zsh",
+    "terminal.integrated.fontFamily": "D2Coding ligature",
+    "terminal.integrated.fontSize": "14",
+}
