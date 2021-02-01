@@ -67,14 +67,6 @@ Plugin 'wincent/ferret'                       " 여러 파일에서 문자열 �
 call vundle#end()
 filetype plugin indent on
 
-
-" Shortcut
-nmap <C-x> :TagbarToggle<CR>
-map <C-d> :NERDTreeToggle<CR>
-map <C-w> <C-w><C-w>
-map <C-t> :tabnext<CR>
-map <C-n> :tabnew<CR
-map <C-c> :tabclose<CR>
 " :tabfind <Tab key>, :tabs
 colorscheme dream
 
@@ -331,8 +323,19 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+" Shortcut
+nmap <C-x> :TagbarToggle<CR>
+map <C-d> :NERDTreeToggle<CR>
+map <C-w> <C-w><C-w>
+map <C-t> :tabnext<CR>
+map <C-n> :tabnew<CR
+map <C-c> :tabclose<CR>
+
 " the required commands for coc.nvim
 " brew install node yarn
 " ~/.vim/coc-settings.json
 " cd ~/.config/coc/extensions/node_modules/coc-ccls
 " ln -s node_modules/ws/lib lib
+
+let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'"
+

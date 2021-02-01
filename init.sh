@@ -42,6 +42,7 @@ vi -c "PluginInstall" -c q -c "call coc#util#install()" -c q! -c q!
 vi -c "CocInstall coc-json coc-tsserver coc-clangd coc-ultisnips coc-cmake coc-sh" -c q -c q
 echo 'export PATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH' >> ~/.zshrc
 echo 'export CPLUS_INCLUDE_PATH=/usr/local/Cellar/llvm/11.0.0/include/c++/v1:/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include' >> ~/.zshrc
+brew install ctags-exuberant
 
 # Set up python
 sudo pip3 install --upgrade pip
