@@ -326,10 +326,10 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " Shortcut
 nmap <C-x> :TagbarToggle<CR>
 map <C-d> :NERDTreeToggle<CR>
-map <C-w> <C-w><C-w>
 map <C-t> :tabnext<CR>
 map <C-n> :tabnew<CR
 map <C-c> :tabclose<CR>
+nnoremap <C-w> <C-w><C-w>
 
 " the required commands for coc.nvim
 " brew install node yarn
