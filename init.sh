@@ -11,7 +11,7 @@ chmod u+w /usr/local/lib/pkgconfig
 
 
 # Install utility
-brew install zsh zsh-syntax-highlighting wget curl git tig vim tmux node yarn llvm
+brew install zsh zsh-syntax-highlighting wget curl git tig vim tmux node yarn llvm tree
 
 
 # Set up terminal
@@ -58,3 +58,7 @@ source ~/.zshrc
 # pyenv virtualenv <version> <venv-name>
 # pyenv activate <venv-name>
 # source deactivate
+
+# CLI Tools for MAC OS
+echo 'export PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include:$PATH' >> ~/.zshrc
+
