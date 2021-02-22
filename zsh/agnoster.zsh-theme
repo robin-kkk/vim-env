@@ -266,7 +266,6 @@ build_prompt() {
   prompt_bzr
   prompt_hg
 	prompt_newline
-	prompt_newline
   prompt_end
 }
 

@@ -1,84 +1,93 @@
-set hlsearch " 검색어 하이라이팅
-set nu " 줄번호
-set autoindent " 자동 들여쓰기
-set scrolloff=2
-set wildmode=longest,list
-set ts=4 "tag select
-set sts=4 "st select
-set sw=1 " 스크롤바 너비
-set autowrite " 다른 파일로 넘어갈 때 자동 저장
-set autoread " 작업 중인 파일 외부에서 변경됬을 경우 자동으로 불러옴
-set cindent " C언어 자동 들여쓰기
-set bs=eol,start,indent
-set history=256
-set laststatus=2 " 상태바 표시 항상
-set showmatch " 일치하는 괄호 하이라이팅
-set smartcase " 검색시 대소문자 구별
+set nocompatible    " Be improved.
+filetype off        " Required for vundle.
+set rtp+=~/.vim/bundle/Vundle.vim   " Set the runtime path to include Vundle and initialize.
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'crusoexia/vim-dream'            " Theme
+Plugin 'vim-syntastic/syntastic'        " Check syntax
+Plugin 'w0rp/ale'                       " Linting syntax checking and semantic errors
+Plugin 'itchyny/lightline.vim'          " A light and configurable statusline/tabline plugin.
+Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline
+Plugin 'mhinz/vim-signify'              " Show vertical status bar for version contorl.
+Plugin 'scrooloose/nerdtree'            " Show directory structures.
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'tmhedberg/SimpylFold'           " Folding
+Plugin 'Yggdroot/indentLine'            " Show vertical line of indentation.
+Plugin 'majutsushi/tagbar'              " Provide an easy way to browse the tags.
+" Usage: Tab \<character>
+Plugin 'godlygeek/tabular'              " Align lines with the given character.
+Plugin 'git://git.wincent.com/command-t.git'    " Running commands, or previous searches and commands
+Plugin 'rking/ag.vim'                   " Search keyword, :Ag [options] {pattern} [{directory}]
+Plugin 'elzr/vim-json'                  " Json formatter
+Plugin 'chrisbra/csv.vim'               " CSV formatter
+Plugin 'plasticboy/vim-markdown'        " Markdown formatter, :Toc, :InsertNToc, :InsertToc
+" Auto-completion
+Plugin 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
+call vundle#end()
+filetype plugin indent on
+filetype plugin on
+syntax enable
+syntax on
+
+set encoding=utf-8
+set nu                  " Show line number.
+set smartcase           " Search with sensitive with capitals.
+set ignorecase
+set incsearch           " Incremental search
+set hlsearch            " Highlight search keyword.
+set cindent             " C-lang indentation
+set tabstop=4           " Set up indentation.
+set softtabstop=4
+set shiftwidth=4
+set expandtab           " Save tab as space.
+set autoindent
 set smartindent
-set tabstop=4
-set expandtab
-set shiftwidth=4 " 자동 들여쓰기 너비 설정
-set ruler " 현재 커서 위치 표시
-set incsearch
-set statusline=\ %<%l:%v\ [%P]%=%a\ %h%m%r\ %F\
+set laststatus=2        " Print always status bar.
+set showmatch           " Highlight matched parenthesis.
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.  " Highlight problematic whitespace
+set wildmenu            " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set backspace=indent,eol,start  " Move on indent,eol,start with backspace key.
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+
+set scrolloff=15         " Enable scroll 15 lines out of the current line.
+set sidescrolloff=15
+set sidescroll=1
+set cmdheight=2
+
+set autoread
+set autowrite           " Automatically save before commands like :next and :make
+set history=1000        " Remember more commands and search history
+set undolevels=1000     " Use many muchos levels of undo
+
+set novisualbell        " Don't beep
+set noerrorbells
+
+set foldmethod=indent   " Enable folding with the spacebar.
+set foldlevel=99
+nnoremap <space> za
+set ruler               " Mark the current cursor.
 set cursorline
-" 마지막으로 수정된 곳에 커서를 위치함
+" Put cursor at the last modified location.
 au BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
 \ exe "norm g`\"" |
 \ endif
-" 파일 인코딩을 한국어로
+" Encoding with korean
 if $LANG[0]=='k' && $LANG[1]=='o'
 set fileencoding=korea
 endif
-" 구문 강조 사용
-if has("syntax")
- syntax on
-endif
 
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'SirVer/ultisnips'					  " for auto completion
-Plugin 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'} " :CocInstall coc-json coc-tsserver coc-ccls coc-clangd 
-Plugin 'crusoexia/vim-dream'                  " Theme
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'mhinz/vim-signify'                    " 버전 관리 파일 상태 표시, 파일 수정 상태 보기
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}    " for atom editor, html tag
-Plugin 'scrooloose/nerdtree'                  " for directory
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'editorconfig/editorconfig-vim'        " for editor-config
-Plugin 'itchyny/lightline.vim'                " for status bar
-Plugin 'vim-airline/vim-airline'
-Plugin 'w0rp/ale'                             " for lint
-Plugin 'https://github.com/nvie/vim-flake8'   " for python (pep8)
-Plugin 'davidhalter/jedi-vim'                 " for python
-Plugin 'Yggdroot/indentLine'                  " for vertical line of indentation
-Plugin 'rking/ag.vim'                         " Search keyword, Usage :Ag [options] {pattern} [{directory}]
-Plugin 'plasticboy/vim-markdown'              " for markdown format, Usage :Toc, :InsertNToc, :InsertToc
-Plugin 'elzr/vim-json'                        " for json
-Plugin 'chrisbra/csv.vim'                     " for csv
-Plugin 'godlygeek/tabular'                    " 특정 문자로 라인 정렬, Usage: Tab \<character>
-Plugin 'majutsushi/tagbar'                    " 코드 함수 블록, 태그끼리 묶어서 표시 (코드 분석 용이)
-Plugin 'vim-syntastic/syntastic'              " 문법 체크
-Plugin 'wincent/ferret'                       " 여러 파일에서 문자열 검색,  Usage: Ack {pattern} {options}
-call vundle#end()
-filetype plugin indent on
+" Settings for plugins
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 
 " :tabfind <Tab key>, :tabs
 colorscheme dream
 
 
-" Syntax
-execute pathogen#infect()
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-
-" for syntastic
+" vim-syntastic/syntastic
 let g:syntastic_html_tidy_ignore_errors=[
     \'proprietary attribute "ng-',
     \'proprietary attribute "chart-',
@@ -87,7 +96,7 @@ let g:syntastic_html_tidy_ignore_errors=[
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_open = 1
 let g:syntastic_loc_list_height = 5
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_java_checkers = ['javac', 'checkstyle']
@@ -109,51 +118,40 @@ highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
 
 
-" for ultisnips
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories = ['UltiSnips']
+" w0rp/ale
+" Check Python files with flake8 and pylint.
+let b:ale_linters = ['flake8', 'pylint']
+" Fix Python files with autopep8 and yapf.
+let b:ale_fixers = ['autopep8', 'yapf']
+" Disable warnings about trailing whitespace for Python files.
+let b:ale_warn_about_trailing_whitespace = 0
 
 
-" for vim-flake8
-let g:flake8_show_in_file=1   " show
+" itchyny/lightline.vim, vim-airline/vim-airline
+execute pathogen#infect()
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 
-" for ag.vim
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
-
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-    let g:ctrlp_use_caching = 0
-else
-    let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-    let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['', '', ''],
-    \ }
-endif
+" tmhedberg/SimpylFold
+let g:SimpylFold_docstring_preview=1
 
 
-" for vim-markdown
-let g:vim_markdown_folding_disabled = 1
-
-
-" for indentline
-let g:indentLine_color_gui = '#385900'
-let g:indentLine_color_term = 100
-let g:indentLine_char = '¦'
+" Yggdroot/indentLine
+let g:indentLine_color_gui = '#A4E57E' "'#385900'
+let g:indentLine_color_term = 239 "100
+let g:indentLine_char = '┊' " '¦'
 let g:indentLine_first_char = ''
 let g:indentLine_showFirstIndentLevel = 0
-let g:indentLine_enabled = 0
+let g:indentLine_enabled = 1
 let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'text', 'sh']
 let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
 let g:indentLine_maxLines = 3000
 nnoremap \il :IndentLinesToggle
 
 
-" for tabular
+" majutsushi/tagbar
 inoremap     :call align()a
 function! s:align()
 let p = '^\s*|\s.*\s|\s*$'
@@ -167,7 +165,22 @@ endif
 endfunction
 
 
-" for coc.nvim
+" for vim-flake8
+let g:flake8_show_in_file=1
+" for vim-markdown
+let g:vim_markdown_folding_disabled = 1
+
+" rking/ag.vim
+" Before execute, brew install ag, ack
+if executable('ag')
+    let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+elseif executable('ack')
+    let s:ctrlp_fallback = 'ack %s --nocolor -f'
+else
+    let s:ctrlp_fallback = 'find %s -type f'
+endif
+
+" neoclide/coc.nvim
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -323,13 +336,9 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-" Shortcut
-nmap <C-x> :TagbarToggle<CR>
-map <C-d> :NERDTreeToggle<CR>
-map <C-t> :tabnext<CR>
-map <C-n> :tabnew<CR
-map <C-c> :tabclose<CR>
-nnoremap <C-w> <C-w><C-w>
+let g:python3_host_prog = system('which python3')
+let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-sh', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-snippets', 'coc-html', 'coc-css', 'coc-emmet', 'coc-pyright', 'coc-git']
+let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets']
 
 " the required commands for coc.nvim
 " brew install node yarn
@@ -337,5 +346,15 @@ nnoremap <C-w> <C-w><C-w>
 " cd ~/.config/coc/extensions/node_modules/coc-ccls
 " ln -s node_modules/ws/lib lib
 
+" for c tag
+" brew install ctags-exuberant
 let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'"
+
+" Shortcut
+map <C-x> :TagbarToggle<CR>
+map <C-d> :NERDTreeToggle<CR>
+map <C-t> :tabnext<CR>
+map <C-n> :tabnew<CR>
+map <C-c> :tabclose<CR>
+nnoremap <C-w> <C-w><C-w>
 

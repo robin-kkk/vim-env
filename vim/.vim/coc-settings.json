@@ -1,3 +1,24 @@
 {
-    "clangd.fallbackFlags": [ "-std=c++17" ]
+    "clangd.fallbackFlags": [
+        "-std=c++17"
+    ],
+    "clangd.path": "/Users/ke2ek/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
+    "coc.source.ultisnips.filetypes": ["tex"],
+    "python.jediEnabled": false,
+    "diagnostic.errorSign": "✖",
+    "diagnostic.warningSign": "⚠",
+    "diagnostic.infoSign": "ℹ",
+    "diagnostic.hintSign": "➤",
+    "suggest.noselect": false,
+    "suggest.echodocSupport": true,
+    "codeLens.enable": true,
+    "signature.enable": true,
+    "suggest.preferCompleteThanJumpPlaceholder": true,
+    "eslint.autoFixOnSave": true,
+    "tsserver.implicitProjectConfig.experimentalDecorators": true,
+    "python.venvFolders": ["envs",".pyenv",".direnv", "~/.local/share/virtualenvs", "~/.cache/pypoetry/virtualenvs"],
+    "python.workspaceSymbols.exclusionPatterns": [],
+    "python.jediEnabled": false,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_django"]
 }

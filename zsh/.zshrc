@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/ke2ek/.oh-my-zsh"
+export ZSH="/Users/$USER/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -105,7 +105,5 @@ prompt_context() {
   fi
 }
 
-# Apply new line to command line
-vi ~/.oh-my-zsh/themes/agnoster.zsh-theme -c "%s/prompt_hg\n/prompt_hg\r\tprompt_newline\r" -c wq
-
+alias vi="vim"
 
