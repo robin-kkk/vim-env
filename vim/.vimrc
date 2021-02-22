@@ -64,6 +64,9 @@ set undolevels=1000     " Use many muchos levels of undo
 set novisualbell        " Don't beep
 set noerrorbells
 
+set textwidth=79
+set colorcolumn=80
+
 set foldmethod=indent   " Enable folding with the spacebar.
 set foldlevel=99
 nnoremap <space> za
