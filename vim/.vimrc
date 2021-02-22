@@ -5,7 +5,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'crusoexia/vim-dream'            " Theme
 Plugin 'vim-syntastic/syntastic'        " Check syntax
-Plugin 'w0rp/ale'                       " Linting syntax checking and semantic errors
+"Plugin 'w0rp/ale'                       " Linting syntax checking and semantic errors
 Plugin 'itchyny/lightline.vim'          " A light and configurable statusline/tabline plugin.
 Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline
 Plugin 'mhinz/vim-signify'              " Show vertical status bar for version contorl.
@@ -97,37 +97,28 @@ let g:syntastic_html_tidy_ignore_errors=[
     \'proprietary attribute "pdk-'
 \]
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
-let g:syntastic_loc_list_height = 5
+"let g:syntastic_loc_list_height = 5
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_java_checkers = ['javac', 'checkstyle']
 let g:syntastic_json_checkers = ['jsonlint']
-let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_css_checkers = ['csslint']
 let g:syntastic_c_checkers = ['clang_check']
 let g:syntastic_html_checkers = ['jshint']
 let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
-let g:syntastic_error_symbol = '❌ '
-let g:syntastic_warning_symbol = '✗ '
-let g:syntastic_style_error_symbol = '❓'
-let g:syntastic_style_warning_symbol = '❔'
-let g:syntastic_java_checkstyle_classpath = '~/checkstyle-7.6-all.jar'
-let g:syntastic_java_checkstyle_conf_file = '~/sun_checks.xml'
+"let g:syntastic_error_symbol = '❌ '
+"let g:syntastic_warning_symbol = '✗ '
+"let g:syntastic_style_error_symbol = '❓'
+"let g:syntastic_style_warning_symbol = '❔'
+"let g:syntastic_java_checkstyle_classpath = '~/checkstyle-7.6-all.jar'
+"let g:syntastic_java_checkstyle_conf_file = '~/sun_checks.xml'
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
-
-
-" w0rp/ale
-" Check Python files with flake8 and pylint.
-let b:ale_linters = ['flake8', 'pylint']
-" Fix Python files with autopep8 and yapf.
-let b:ale_fixers = ['autopep8', 'yapf']
-" Disable warnings about trailing whitespace for Python files.
-let b:ale_warn_about_trailing_whitespace = 0
 
 
 " itchyny/lightline.vim, vim-airline/vim-airline
@@ -168,8 +159,6 @@ endif
 endfunction
 
 
-" for vim-flake8
-let g:flake8_show_in_file=1
 " for vim-markdown
 let g:vim_markdown_folding_disabled = 1
 
@@ -340,7 +329,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:python3_host_prog = system('which python3')
-let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-sh', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-snippets', 'coc-html', 'coc-css', 'coc-emmet', 'coc-pyright', 'coc-git']
+let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-sh', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-snippets', 'coc-html', 'coc-css', 'coc-emmet', 'coc-git', 'coc-pyright', 'coc-python']
 let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets']
 
 " the required commands for coc.nvim
