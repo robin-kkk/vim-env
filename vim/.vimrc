@@ -109,12 +109,7 @@ let g:syntastic_css_checkers = ['csslint']
 let g:syntastic_c_checkers = ['clang_check']
 let g:syntastic_html_checkers = ['jshint']
 let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
-"let g:syntastic_error_symbol = '❌ '
-"let g:syntastic_warning_symbol = '✗ '
-"let g:syntastic_style_error_symbol = '❓'
-"let g:syntastic_style_warning_symbol = '❔'
-"let g:syntastic_java_checkstyle_classpath = '~/checkstyle-7.6-all.jar'
-"let g:syntastic_java_checkstyle_conf_file = '~/sun_checks.xml'
+let g:syntastic_python_pylint_post_args="--max-line-length=79"
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
@@ -338,9 +333,9 @@ let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets'
 " cd ~/.config/coc/extensions/node_modules/coc-ccls
 " ln -s node_modules/ws/lib lib
 
-" for c tag
-" brew install ctags-exuberant
+" for c tag in CocList, before using it, brew install ctags-exuberant
 let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'"
+
 
 " Shortcut
 map <C-x> :TagbarToggle<CR>
@@ -349,4 +344,7 @@ map <C-t> :tabnext<CR>
 map <C-n> :tabnew<CR>
 map <C-c> :tabclose<CR>
 nnoremap <C-w> <C-w><C-w>
+
+" Python Auto-formatter, before using it, pip install yapf
+autocmd FileType python nnoremap <space>y :0,$!yapf<Cr><C-o>
 

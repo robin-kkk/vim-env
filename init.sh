@@ -41,7 +41,7 @@ brew install ctags-exuberant
 
 # Set up python
 pip3 install --upgrade pip
-pip3 install flake8 pylint
+pip3 install flake8 pylint yapf
 brew install zlib pyenv
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
 echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
