@@ -1,11 +1,11 @@
 {
-    "clangd.fallbackFlags": [
-        "-std=c++17"
-    ],
+    "clangd.fallbackFlags": ["-std=c++17"],
     "clangd.path": "/Users/ke2ek/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
     "coc.source.ultisnips.filetypes": ["tex"],
-    "python.jediEnabled": false,
     "diagnostic.errorSign": "EE",
+    "diagnostic.warningSign": "WW",
+    "diagnostic.infoSign": "II",
+    "diagnostic.hintSign": "HH",
     "suggest.noselect": false,
     "suggest.echodocSupport": true,
     "codeLens.enable": true,
@@ -13,8 +13,12 @@
     "suggest.preferCompleteThanJumpPlaceholder": true,
     "eslint.autoFixOnSave": true,
     "tsserver.implicitProjectConfig.experimentalDecorators": true,
-    "python.venvFolders": ["envs",".pyenv",".direnv", "~/.local/share/virtualenvs", "~/.cache/pypoetry/virtualenvs"],
+    "python.jediEnabled": false,
+    "python.venvFolders": ["~/.pyenv"],
     "python.workspaceSymbols.exclusionPatterns": [],
     "python.linting.pylintEnabled": true,
-    "python.linting.pylintArgs": ["--load-plugins", "pylint_django"]
+    "python.linting.mypyEnabled": true,
+    "python.linting.pylintUseMinimalCheckers": false,
+    "python.linting.pylintPath": "pylint",
+    "python.linting.pylintArgs": ["--max-line-length", "79"]
 }

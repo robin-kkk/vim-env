@@ -4,8 +4,6 @@ set rtp+=~/.vim/bundle/Vundle.vim   " Set the runtime path to include Vundle and
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'crusoexia/vim-dream'            " Theme
-Plugin 'vim-syntastic/syntastic'        " Check syntax
-"Plugin 'w0rp/ale'                       " Linting syntax checking and semantic errors
 Plugin 'itchyny/lightline.vim'          " A light and configurable statusline/tabline plugin.
 Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline
 Plugin 'mhinz/vim-signify'              " Show vertical status bar for version contorl.
@@ -21,7 +19,7 @@ Plugin 'rking/ag.vim'                   " Search keyword, :Ag [options] {pattern
 Plugin 'elzr/vim-json'                  " Json formatter
 Plugin 'chrisbra/csv.vim'               " CSV formatter
 Plugin 'plasticboy/vim-markdown'        " Markdown formatter, :Toc, :InsertNToc, :InsertToc
-" Auto-completion
+" Syntax/Linting/auto-completion
 Plugin 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
 call vundle#end()
 filetype plugin indent on
@@ -90,32 +88,6 @@ let g:airline_right_sep=''
 colorscheme dream
 
 
-" vim-syntastic/syntastic
-let g:syntastic_html_tidy_ignore_errors=[
-    \'proprietary attribute "ng-',
-    \'proprietary attribute "chart-',
-    \'proprietary attribute "pdk-'
-\]
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-"let g:syntastic_loc_list_height = 5
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_java_checkers = ['javac', 'checkstyle']
-let g:syntastic_json_checkers = ['jsonlint']
-let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_css_checkers = ['csslint']
-let g:syntastic_c_checkers = ['clang_check']
-let g:syntastic_html_checkers = ['jshint']
-let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
-let g:syntastic_python_pylint_post_args="--max-line-length=79"
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
-
-
 " itchyny/lightline.vim, vim-airline/vim-airline
 execute pathogen#infect()
 set statusline+=%#warningmsg#
@@ -128,9 +100,9 @@ let g:SimpylFold_docstring_preview=1
 
 
 " Yggdroot/indentLine
-let g:indentLine_color_gui = '#A4E57E' "'#385900'
-let g:indentLine_color_term = 239 "100
-let g:indentLine_char = '┊' " '¦'
+let g:indentLine_color_gui = '#A4E57E'
+let g:indentLine_color_term = 239
+let g:indentLine_char = '┊'
 let g:indentLine_first_char = ''
 let g:indentLine_showFirstIndentLevel = 0
 let g:indentLine_enabled = 1
@@ -307,7 +279,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <C-a>  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
@@ -324,7 +296,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:python3_host_prog = system('which python3')
-let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-sh', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-snippets', 'coc-html', 'coc-css', 'coc-emmet', 'coc-git', 'coc-pyright', 'coc-python']
+let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-snippets', 'coc-html', 'coc-css', 'coc-emmet', 'coc-git', 'coc-pyright', 'coc-python', 'coc-sh']
 let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets']
 
 " the required commands for coc.nvim
@@ -342,9 +314,9 @@ map <C-x> :TagbarToggle<CR>
 map <C-d> :NERDTreeToggle<CR>
 map <C-t> :tabnext<CR>
 map <C-n> :tabnew<CR>
-map <C-c> :tabclose<CR>
+map <C-q> :tabclose<CR>
 nnoremap <C-w> <C-w><C-w>
 
 " Python Auto-formatter, before using it, pip install yapf
-autocmd FileType python nnoremap <space>y :0,$!yapf<Cr><C-o>
+autocmd FileType python nnoremap <C-c> :0,$!yapf<Cr>:<C-u>CocCommand pyright.organizeimports<Cr>
 
