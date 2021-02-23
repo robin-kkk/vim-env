@@ -319,4 +319,5 @@ nnoremap <C-w> <C-w><C-w>
 
 " Python Auto-formatter, before using it, pip install yapf
 autocmd FileType python nnoremap <C-c> :0,$!yapf<Cr>:<C-u>CocCommand pyright.organizeimports<Cr>
+autocmd FileType python nnoremap <C-p> :<C-u>CocCommand python.runLinting<Cr>
 
