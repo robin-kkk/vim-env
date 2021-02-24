@@ -10,7 +10,8 @@ sudo chown -R $(whoami) /usr/local/lib/pkgconfig
 chmod u+w /usr/local/lib/pkgconfig
 
 # Install utility
-brew install zsh zsh-syntax-highlighting wget curl git tig vim tmux node yarn tree llvm python3
+brew install zsh zsh-syntax-highlighting wget curl git tig vim tmux node yarn tree llvm fzf python3
+eval "$(brew --prefix)/opt/fzf/install"
 # brew install eddieantonio/eddieantonio/imgcat
 
 # Set up terminal

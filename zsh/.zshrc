@@ -106,4 +106,9 @@ prompt_context() {
 }
 
 alias vi="vim"
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+plugins=(
+   fzf
+)
+
 
