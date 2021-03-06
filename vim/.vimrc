@@ -16,7 +16,6 @@ Plugin 'majutsushi/tagbar'              " Provide an easy way to browse the tags
 Plugin 'godlygeek/tabular'              " Align lines with the given character.
 Plugin 'git://git.wincent.com/command-t.git'    " Running commands, or previous searches and commands
 Plugin 'rking/ag.vim'                   " Search keyword, :Ag [options] {pattern} [{directory}]
-Plugin 'elzr/vim-json'                  " Json formatter
 Plugin 'chrisbra/csv.vim'               " CSV formatter
 Plugin 'plasticboy/vim-markdown'        " Markdown formatter, :Toc, :InsertNToc, :InsertToc
 " Syntax/Linting/auto-completion
@@ -62,8 +61,10 @@ set undolevels=1000     " Use many muchos levels of undo
 set novisualbell        " Don't beep
 set noerrorbells
 
-set textwidth=79
-set colorcolumn=80
+if expand("%:e") == "py"
+    set textwidth=79
+    set colorcolumn=80
+endif
 
 set foldmethod=indent   " Enable folding with the spacebar.
 set foldlevel=99
@@ -296,7 +297,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:python3_host_prog = system('which python3')
-let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-snippets', 'coc-html', 'coc-css', 'coc-emmet', 'coc-git', 'coc-pyright', 'coc-python', 'coc-sh']
+let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-snippets', 'coc-html', 'coc-css', 'coc-emmet', 'coc-git', 'coc-pyright', 'coc-python', 'coc-sh', 'coc-yaml', 'coc-docker', 'coc-html', 'coc-markdownlint']
 let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets']
 
 " the required commands for coc.nvim
@@ -318,6 +319,5 @@ map <C-q> :tabclose<CR>
 nnoremap <C-w> <C-w><C-w>
 
 " Python Auto-formatter, before using it, pip install yapf
-autocmd FileType python nnoremap <C-c> :0,$!yapf<Cr>:<C-u>CocCommand pyright.organizeimports<Cr>
-autocmd FileType python nnoremap <C-p> :<C-u>CocCommand python.runLinting<Cr>
+autocmd FileType python nnoremap <C-c> :0,$!yapf<Cr>:<C-u>CR<Cr>
 
