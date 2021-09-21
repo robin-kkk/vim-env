@@ -6,6 +6,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'crusoexia/vim-dream'            " Theme
 Plugin 'itchyny/lightline.vim'          " A light and configurable statusline/tabline plugin.
 Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline
+" Status bar that displays things like the current virtualenv, git branch, files being edited, and much more.
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'mhinz/vim-signify'              " Show vertical status bar for version contorl.
 Plugin 'scrooloose/nerdtree'            " Show directory structures.
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -20,6 +22,8 @@ Plugin 'chrisbra/csv.vim'               " CSV formatter
 Plugin 'plasticboy/vim-markdown'        " Markdown formatter, :Toc, :InsertNToc, :InsertToc
 " Syntax/Linting/auto-completion
 Plugin 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
+Plugin 'tpope/vim-fugitive'             " Git command
+Plugin 'fatih/vim-go'                   " Vim for go
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
@@ -35,7 +39,7 @@ set hlsearch            " Highlight search keyword.
 set cindent             " C-lang indentation
 set tabstop=4           " Set up indentation.
 set softtabstop=4
-set shiftwidth=4
+set shiftwidth=4        " # of spaces in shift indentation (>>, <<)
 set expandtab           " Save tab as space.
 set autoindent
 set smartindent
@@ -60,15 +64,14 @@ set undolevels=1000     " Use many muchos levels of undo
 
 set novisualbell        " Don't beep
 set noerrorbells
+set mouse=a             " Enable mouse support.
 
-if expand("%:e") == "py"
-    set textwidth=79
-    set colorcolumn=80
-endif
+set textwidth=119
+set colorcolumn=120
 
 set foldmethod=indent   " Enable folding with the spacebar.
 set foldlevel=99
-nnoremap <space> za
+nmap <space> za
 set ruler               " Mark the current cursor.
 set cursorline
 " Put cursor at the last modified location.
@@ -88,7 +91,6 @@ let g:airline_right_sep=''
 " :tabfind <Tab key>, :tabs
 colorscheme dream
 
-
 " itchyny/lightline.vim, vim-airline/vim-airline
 execute pathogen#infect()
 set statusline+=%#warningmsg#
@@ -96,13 +98,16 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 
+" scrooloose/nerdtree
+let NERDTreeIgnore=['\.pyc$', '\~$']
+
 " tmhedberg/SimpylFold
 let g:SimpylFold_docstring_preview=1
 
 
 " Yggdroot/indentLine
-let g:indentLine_color_gui = '#A4E57E'
-let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#585858'
+let g:indentLine_color_term = 101
 let g:indentLine_char = '┊'
 let g:indentLine_first_char = ''
 let g:indentLine_showFirstIndentLevel = 0
@@ -110,7 +115,7 @@ let g:indentLine_enabled = 1
 let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'text', 'sh']
 let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
 let g:indentLine_maxLines = 3000
-nnoremap \il :IndentLinesToggle
+nmap \il :IndentLinesToggle
 
 
 " majutsushi/tagbar
@@ -210,7 +215,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -280,24 +285,24 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <C-a>  :<C-u>CocList diagnostics<cr>
+nmap <silent><nowait> <C-a>  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nmap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nmap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nmap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+nmap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+nmap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nmap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nmap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:python3_host_prog = system('which python3')
-let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-snippets', 'coc-html', 'coc-css', 'coc-emmet', 'coc-git', 'coc-pyright', 'coc-python', 'coc-sh', 'coc-yaml', 'coc-docker', 'coc-html', 'coc-markdownlint']
+let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-snippets', 'coc-html', 'coc-css', 'coc-emmet', 'coc-git', 'coc-pyright', 'coc-python', 'coc-sh', 'coc-yaml', 'coc-docker', 'coc-html', 'coc-markdownlint', 'coc-go']
 let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets']
 
 " the required commands for coc.nvim
@@ -309,15 +314,18 @@ let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets'
 " for c tag in CocList, before using it, brew install ctags-exuberant
 let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'"
 
-
 " Shortcut
 map <C-x> :TagbarToggle<CR>
 map <C-d> :NERDTreeToggle<CR>
 map <C-t> :tabnext<CR>
 map <C-n> :tabnew<CR>
 map <C-q> :tabclose<CR>
-nnoremap <C-w> <C-w><C-w>
+map <C-w> <C-w><C-w>
 
 " Python Auto-formatter, before using it, pip install yapf
-autocmd FileType python nnoremap <C-c> :0,$!yapf<Cr>:<C-u>CR<Cr>
+au FileType python nmap <C-c> :0,$!yapf<Cr>:OR<Cr>
 
+" Go commands
+au FileType go nmap <Leader>gd :GoDefTab<CR>
+
+" tab to spaces doesn't work in vim-go thus change it
