@@ -98,17 +98,40 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Show only user name
-prompt_context() {
-  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-  fi
-}
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# docker setup
+export PATH=$PATH:/usr/local/go/bin
+
+alias dp='docker ps -a'
+alias di='docker images'
+alias dr='docker rm'
+alias ds='docker start'
+alias dst='docker stop'
+alias dl='docker logs -f'
+alias drs='docker rs'
+
+# If dockerd down, execute below command.
+#sudo service docker start
+
+# git setup
+alias gs="git status"
+alias gp="git push"
+alias gpl="git pull"
+alias gm="git merge"
+alias gr="git rebase"
+alias gc="git checkout"
+alias gb="git branch"
+
+# local setup
 alias vi="vim"
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-plugins=(
-   fzf
-)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
+plugins=(fzf)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#bindkey -s '^f' "history | fzf | awk '{ s = ""; for (i = 2; i <= NF; i++) s = s $i " "; system(s) }'"
 
 
