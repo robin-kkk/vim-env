@@ -3,7 +3,8 @@ filetype off        " Required for vundle.
 set rtp+=~/.vim/bundle/Vundle.vim   " Set the runtime path to include Vundle and initialize.
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'crusoexia/vim-dream'            " Theme
+"Plugin 'crusoexia/vim-dream'            " Theme
+Plugin 'morhetz/gruvbox'
 Plugin 'itchyny/lightline.vim'          " A light and configurable statusline/tabline plugin.
 Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline
 " Status bar that displays things like the current virtualenv, git branch, files being edited, and much more.
@@ -38,9 +39,15 @@ set incsearch           " Incremental search
 set hlsearch            " Highlight search keyword.
 set cindent             " C-lang indentation
 set tabstop=4           " Set up indentation.
-set softtabstop=4
-set shiftwidth=4        " # of spaces in shift indentation (>>, <<)
-set expandtab           " Save tab as space.
+if expand("%:e") == "go"
+    set softtabstop=0
+    set noexpandtab
+    set shiftwidth=8
+else
+    set softtabstop=4
+    set expandtab           " Save tab as space.
+    set shiftwidth=4        " # of spaces in shift indentation (>>, <<)
+endif
 set autoindent
 set smartindent
 set laststatus=2        " Print always status bar.
@@ -68,8 +75,10 @@ set mouse=a             " Enable mouse support.
 
 set textwidth=119
 set colorcolumn=120
-
-set foldmethod=indent   " Enable folding with the spacebar.
+set foldmethod=marker   " Enable folding with the spacebar.
+if expand("%:e") == "py"
+    set foldmethod=indent
+endif
 set foldlevel=99
 nmap <space> za
 set ruler               " Mark the current cursor.
@@ -89,7 +98,8 @@ let g:airline_left_sep=''
 let g:airline_right_sep=''
 
 " :tabfind <Tab key>, :tabs
-colorscheme dream
+" colorscheme dream
+colorscheme gruvbox
 
 " itchyny/lightline.vim, vim-airline/vim-airline
 execute pathogen#infect()
@@ -317,7 +327,7 @@ let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'"
 " Shortcut
 map <C-x> :TagbarToggle<CR>
 map <C-d> :NERDTreeToggle<CR>
-map <C-t> :tabnext<CR>
+map <C-g> :tabnext<CR>
 map <C-n> :tabnew<CR>
 map <C-q> :tabclose<CR>
 map <C-w> <C-w><C-w>
