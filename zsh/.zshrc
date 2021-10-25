@@ -8,7 +8,7 @@ export ZSH="/Users/$USER/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -99,39 +99,51 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# docker setup
-export PATH=$PATH:/usr/local/go/bin
+# Set up C++ for coc.nvim
+export PATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH
+export CPLUS_INCLUDE_PATH=/usr/local/Cellar/llvm/11.0.0/include/c++/v1:/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include
+export PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include:$PATH
 
+# Set up pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# Set up docker commands
 alias dp='docker ps -a'
 alias di='docker images'
 alias dr='docker rm'
 alias ds='docker start'
 alias dst='docker stop'
 alias dl='docker logs -f'
-alias drs='docker rs'
+alias drs='docker restart'
 
-# If dockerd down, execute below command.
-#sudo service docker start
-
-# git setup
+# Set up git commands
 alias gs="git status"
+alias gc="git commit -m"
+alias gca="git commit --amend"
+alias gl="git log"
+alias gck="git checkout"
 alias gp="git push"
 alias gpl="git pull"
 alias gm="git merge"
 alias gr="git rebase"
-alias gc="git checkout"
 alias gb="git branch"
 
-# local setup
+# Set up local commands
 alias vi="vim"
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
 plugins=(fzf)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#bindkey -s '^f' "history | fzf | awk '{ s = ""; for (i = 2; i <= NF; i++) s = s $i " "; system(s) }'"
-
-
+# Set up go
+export PATH=$PATH:/usr/local/go/bin
