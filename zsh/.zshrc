@@ -140,6 +140,34 @@ alias gb="git branch"
 
 # Set up local commands
 alias vi="vim"
+
+replaceAll() {
+    oldKeyword=$1
+    newKeyword=$2
+    rootDir=$3
+
+    if [ -z $oldKeyword ] || [ -z $newKeyword ]; then
+        echo "Usage: replaceAll [old-keyword] [new-keyword] [root-dir]"
+        return
+    fi
+
+    if [ -z $rootDir ]; then
+        rootDir="."
+    fi
+
+    fileList=$(git grep -l "$oldKeyword" $rootDir)
+    while read -r filePath
+    do
+        cmd="s/$oldKeyword/$newKeyword/g"
+        sed -i .bak -e "$cmd" $filePath
+        echo "Replaced all keywords at $filePath"
+    done <<< "$fileList"
+
+    rm -rf */**/*.bak;
+}
+
+alias re="replaceAll"
+
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
 plugins=(fzf)
 
