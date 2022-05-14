@@ -98,6 +98,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Key binding
+bindkey "[D" backward-word
+bindkey "[C" forward-word
+bindkey "^[a" beginning-of-line
+bindkey "^[e" end-of-line
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 source ~/powerlevel10k/powerlevel10k.zsh-theme
@@ -139,8 +145,6 @@ alias gr="git rebase"
 alias gb="git branch"
 
 # Set up local commands
-alias vi="vim"
-
 replaceAll() {
     oldKeyword=$1
     newKeyword=$2
@@ -167,11 +171,30 @@ replaceAll() {
 }
 
 alias re="replaceAll"
+alias vi="nvim"
+alias vim="nvim"
 
+# Set up fzf
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
 plugins=(fzf)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Set up go
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin:$HOME/bin
+
+# Kubernetes
+export KUBECONFIG=$HOME/.kube/kubeconfig.yaml:$HOME/.kube/kubeconfig-real.yaml:$HOME/.kube/nl10443-aisuite-prod.yaml
+alias k=kubectl
+alias dev="k config use-context dev"
+alias qa="k config use-context qa"
+alias stage="k config use-context stage"
+alias real="k config use-context real"
+alias ml="k config use-context nl10443@aisuite-prod"
+
+export TERM=xterm-256color
+export EDITOR=vim
+export K9S_EDITOR=vim
+
+# shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
