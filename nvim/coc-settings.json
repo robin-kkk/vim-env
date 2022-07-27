@@ -2,6 +2,7 @@
     "clangd.fallbackFlags": ["-std=c++17"],
     "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.3/clangd_14.0.3/bin/clangd",
     "coc.source.ultisnips.filetypes": ["tex"],
+    "coc.preferences.rootPatterns": [".git", "WORKSPACE", "BUILD"],
     "diagnostic.errorSign": "EE",
     "diagnostic.warningSign": "WW",
     "diagnostic.infoSign": "II",
@@ -13,12 +14,17 @@
     "suggest.preferCompleteThanJumpPlaceholder": true,
     "eslint.autoFixOnSave": true,
     "tsserver.implicitProjectConfig.experimentalDecorators": true,
-    "python.venvFolders": ["~/.pyenv", "~/.local/share/virtualenvs", "~/.cache/pypoetry/virtualenvs", "~/miniforge3/envs"],
+    "python.venvFolders": ["~/miniforge3/envs", "~/.pyenv"],
     "python.workspaceSymbols.exclusionPatterns": [],
     "python.jediEnabled": false,
     "python.linting.pylintEnabled": true,
     "python.linting.mypyEnabled": true,
     "python.linting.pylintUseMinimalCheckers": false,
     "python.linting.pylintPath": "pylint",
-    "python.linting.pylintArgs": ["--max-line-length", "120"]
+    "python.linting.pylintArgs": ["--max-line-length", "120"],
+	"python.analysis.diagnosticSeverityOverrides": {
+        "reportOptionalMemberAccess": "warning",
+        "reportGeneralTypeIssues": "warning",
+        "reportOptionalIterable": "warning"
+    }
 }
