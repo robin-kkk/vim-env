@@ -184,13 +184,12 @@ plugins=(fzf)
 export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin:$HOME/bin
 
 # Kubernetes
-export KUBECONFIG=$HOME/.kube/kubeconfig.yaml:$HOME/.kube/kubeconfig-real.yaml:$HOME/.kube/nl10443-aisuite-prod.yaml
+export KUBECONFIG=$HOME/.kube/kubeconfig.yaml:$HOME/.kube/kubeconfig-real.yaml
 alias k=kubectl
 alias dev="k config use-context dev"
 alias qa="k config use-context qa"
 alias stage="k config use-context stage"
 alias real="k config use-context real"
-alias ml="k config use-context nl10443@aisuite-prod"
 
 export TERM=xterm-256color
 export EDITOR=vim
