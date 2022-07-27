@@ -2,12 +2,15 @@ call plug#begin('~/.config/nvim/plugged')
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " tree
-Plug 'scrooloose/nerdtree'	     " Show directory structures.
+Plug 'scrooloose/nerdtree'	         " Show directory structures.
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'unkiwii/vim-nerdtree-sync'     " Sync cursor line for the current file
 " autocomplete
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'jiangmiao/auto-pairs'          " pairs quotes or braket
 " status bar
+"Plug 'nvim-lualine/lualine.nvim'
+"Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-airline/vim-airline'       " Lean & mean status/tabline
 Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'         " A light and configurable statusline/tabline plugin.
@@ -23,9 +26,9 @@ Plug 'terryma/vim-smooth-scroll'
 " search, before installing, brew install ag, ack
 Plug 'rking/ag.vim'                  " Search keyword, :Ag [options] {pattern} [{directory}]
 " align / folding
+Plug 'tmhedberg/SimpylFold'          " Folding
 Plug 'godlygeek/tabular'             " Align lines with the given character. Usage: Tab \<character>
 Plug 'chrisbra/csv.vim'              " CSV formatter
-Plug 'tmhedberg/SimpylFold'          " Folding
 Plug 'Yggdroot/indentLine'           " Show vertical line of indentation.
 " theme
 Plug 'morhetz/gruvbox'
@@ -34,6 +37,12 @@ Plug 'fatih/vim-go'                  " Vim for go
 " git
 Plug 'airblade/vim-gitgutter'        " git change status
 Plug 'tpope/vim-fugitive'            " git command wrapper
+" python
+Plug 'jmcantrell/vim-virtualenv'
+" bazel
+Plug 'google/vim-maktaba'
+Plug 'bazelbuild/vim-bazel'
+Plug 'bazelbuild/vim-ft-bzl'
 " telescope, before installing, brew install ripgrep fd, and then :checkhealth telescope
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
@@ -54,6 +63,9 @@ if expand("%:e") == "go"
     set softtabstop=0
     set noexpandtab
     set shiftwidth=8
+elseif expand("%:e") == "json"
+    set softtabstop=2
+    set shiftwidth=2
 else
     set softtabstop=4
     set expandtab           " Save tab as space.
@@ -87,9 +99,9 @@ if expand("%:e") == "py"
     set foldmethod=indent
 endif
 set foldlevel=99
-nmap <space> za
 set ruler               " Mark the current cursor.
 set cursorline
+set clipboard+=unnamed  " Allow to copy & paste
 " Put cursor at the last modified location.
 au BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -104,6 +116,7 @@ endif
 """ NERDTree Configuration
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeHighlightCursorline = 1
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.pyc$', '\~$']
 
@@ -142,54 +155,11 @@ endif
 endfunction
 
 
-""" Git Command
-nmap <Leader>gs :Gstatus<CR>
-nmap <Leader>gca :Gwrite<CR>
-nmap <Leader>gc :Gcommit<CR>
-nmap <Leader>gp :Gpush<CR>
-nmap <Leader>gb :Gblame<CR>
-nmap <Leader>gr :Gremove<CR>
-nmap <Leader>gpl :Gpull<CR>
-nmap <Leader>gdf :Gvdiff<CR>
-
-
 """ CoC
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> sd :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Mappings for CoCList
-" Show all diagnostics.
-nmap <silent><nowait> <C-a>  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nmap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nmap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nmap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nmap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nmap <silent><nowait> <space>k  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nmap <silent><nowait> <space>j  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nmap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
 let g:python3_host_prog = system('which python3')
-let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-json', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-html', 'coc-css', 'coc-emmet', 'coc-python', 'coc-sh', 'coc-yaml', 'coc-docker', 'coc-html', 'coc-markdownlint', 'coc-go']
+let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-html', 'coc-css', 'coc-emmet', 'coc-python', 'coc-sh', 'coc-yaml', 'coc-json', 'coc-docker', 'coc-markdownlint', 'coc-go'] "pyright
 let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets']
+" coc-pyright settings: https://github.com/fannheyward/coc-pyright/blob/master/package.json
 
 " for c tag in CocList, before using it, brew install ctags-exuberant
 " cd ~/.config/coc/extensions/node_modules/coc-ccls
@@ -199,7 +169,10 @@ let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'"
 
 
 """ Airline
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1              " Open the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t'          " Print the filenames in the list of buffers
+let g:airline#extensions#tabline#buffer_nr_show = 1       " Show buffer number
+let g:airline#extensions#tabline#buffer_nr_format = '%s:' " Show buffer number format
 let g:airline_theme='bubblegum'
 
 
@@ -220,14 +193,64 @@ endif
 """ Shortcut
 nmap <silent><nowait> <C-d>  :<C-u>NERDTreeToggle<cr>
 nmap <silent><nowait> <C-x>  :<C-u>TagbarToggle<cr>
-nmap <silent><nowait> N  :<C-u>tabnew<cr>
-nmap <silent><nowait> >  :<C-u>tabnext<cr>
-nmap <silent><nowait> <  :<C-u>tabprevious<cr>
+" Tab
+nmap <silent><nowait> T  :<C-u>tabnew<cr>
+nmap <silent><nowait> }  :<C-u>tabnext<cr>
+nmap <silent><nowait> {  :<C-u>tabprevious<cr>
 nmap <silent><nowait> Q  :<C-u>tabclose<cr>
+" Buffer
+nmap <silent><nowait> <space>l :<C-u>ls<cr>
+nmap <silent><nowait> <space>b :<C-u>enew<cr>
+nmap <silent><nowait> < :<C-u>bprevious!<cr>
+nmap <silent><nowait> > :<C-u>bnext!<cr>
+nmap <silent><nowait> S :bp <BAR> bd #<cr>
+" Splitted window
+nmap <silent><nowait> <space>q :<C-u>q!<cr>
 map <C-w> <C-w><C-w>
+" Coc : GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> sd :call <SID>show_documentation()<CR>
 
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" Coc : Mappings for CoCList
+" Show all diagnostics.
+nmap <silent><nowait> <C-a>  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nmap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nmap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nmap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nmap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nmap <silent><nowait> <space>k  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nmap <silent><nowait> <space>j  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nmap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-""" Telescope
+" Git Command (command :Git before typing the following)
+nmap <silent><nowait> z  :<C-u>G<CR>
+nmap <Leader>gl :Git log<CR>
+nmap <Leader>gca :Git write<CR>
+nmap <Leader>gc :Git commit<CR>
+nmap <Leader>gp :Git push<CR>
+nmap <Leader>gb :Git blame<CR>
+nmap <Leader>gr :Git remove<CR>
+nmap <Leader>gpl :Git pull<CR>
+nmap <Leader>gdf :Git vdiff<CR>
+
+" Telescope
 nmap <silent><nowait>ff :<C-u>Telescope find_files<cr>
 nmap <silent><nowait>fg :<C-u>Telescope live_grep<cr>
 nmap <silent><nowait>fh :<C-u>Telescope help_tags<cr>
@@ -247,6 +270,3 @@ nmap <silent><nowait>fb :<C-u>Telescope buffers<cr>
 syntax enable
 let g:gruvbox_invert_selection = 0
 colorscheme gruvbox
-
-
-" TODO: Add python virtual env 
