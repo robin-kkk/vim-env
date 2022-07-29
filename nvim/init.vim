@@ -47,6 +47,8 @@ Plug 'bazelbuild/vim-ft-bzl'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+" debugger
+Plug 'puremourning/vimspector'
 call plug#end()
 
 
@@ -156,8 +158,8 @@ endfunction
 
 
 """ CoC
-let g:python3_host_prog = system('which python3')
-let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-html', 'coc-css', 'coc-emmet', 'coc-python', 'coc-sh', 'coc-yaml', 'coc-json', 'coc-docker', 'coc-markdownlint', 'coc-go'] "pyright
+let g:python3_host_prog = '/Users/user/miniforge3/envs/server/bin/python'
+let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-html', 'coc-css', 'coc-emmet', 'coc-python', 'coc-sh', 'coc-yaml', 'coc-json', 'coc-docker', 'coc-markdownlint', 'coc-go', 'coc-pyright']
 let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets']
 " coc-pyright settings: https://github.com/fannheyward/coc-pyright/blob/master/package.json
 
@@ -206,6 +208,7 @@ nmap <silent><nowait> > :<C-u>bnext!<cr>
 nmap <silent><nowait> S :bp <BAR> bd #<cr>
 " Splitted window
 nmap <silent><nowait> <space>q :<C-u>q!<cr>
+nmap <silent><nowait> <space>w :<C-u>wq<cr>
 map <C-w> <C-w><C-w>
 " Coc : GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -266,7 +269,25 @@ nmap <silent><nowait>fb :<C-u>Telescope buffers<cr>
 " :bl -> move to the last buffer
 
 
-""" Theme
+" Theme
 syntax enable
 let g:gruvbox_invert_selection = 0
 colorscheme gruvbox
+
+" Debugger (https://github.com/puremourning/vimspector#mappings)
+let g:vimspector_enable_mappings = 'HUMAN'
+nmap <leader>b :<C-u>call vimspector#Launch()<cr>
+nmap <space>1 :<C-u>call vimspector#ToggleBreakpoint()<cr>
+nmap <space>2 :<C-u>call vimspector#Continue()<cr>
+nmap <space>3 :<C-u>call vimspector#StepOver()<cr>
+nmap <space>4 :<C-u>call vimspector#StepInto()<cr>
+nmap <space>5 :<C-u>call vimspector#StepOut()<cr>
+nmap <leader>p :<C-u>call vimspector#Pause()<cr>
+nmap <leader>s :<C-u> call vimspector#Stop()<cr>
+nmap <leader>rs :<C-u>VimspectorReset<cr>
+nmap <Leader>be <C-u>VimspectorBalloonEval<cr>
+nmap <leader>e :<C-u>VimspectorEval<cr>
+nmap <leader>w :<C-u>VimspectorWatch<cr>
+nmap <leader>o :<C-u>VimspectorShowOutput<cr>
+nmap <leader>u :<C-u>call vimspector#UpFrame()<cr>
+nmap <leader>d :<C-u>call vimspector#DownFrame()<cr>
