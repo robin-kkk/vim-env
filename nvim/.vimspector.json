@@ -1,0 +1,16 @@
+{
+  "configurations": {
+    "Python": {
+      "adapter": "debugpy",
+      "filetypes": [ "python" ],
+      "default": true,
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/test.py",
+        "stopOnEntry": true,
+        "cwd": "${workspaceRoot}",
+        "python": "/Users/user/miniforge3/envs/server/bin/python"
+      }
+    }
+  }
+}
