@@ -105,9 +105,13 @@ bindkey "^[a" beginning-of-line
 bindkey "^[e" end-of-line
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# Type commands as like below:
+#   cd ~/.oh-my-zsh/plugins
+#   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+#   echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+#   git clone https://github.com/zsh-users/zsh-autosuggestions.git
+#   echo "source ${(q-)PWD}/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
