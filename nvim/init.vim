@@ -209,7 +209,6 @@ nmap <silent><nowait> S :bp <BAR> bd #<cr>
 " Splitted window
 nmap <silent><nowait> <space>q :<C-u>q!<cr>
 nmap <silent><nowait> <space>w :<C-u>wq<cr>
-map <C-w> <C-w><C-w>
 " Coc : GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
@@ -291,3 +290,6 @@ nmap <leader>w :<C-u>VimspectorWatch<cr>
 nmap <leader>o :<C-u>VimspectorShowOutput<cr>
 nmap <leader>u :<C-u>call vimspector#UpFrame()<cr>
 nmap <leader>d :<C-u>call vimspector#DownFrame()<cr>
+
+" Shortcut
+nnoremap <C-w> <C-w><C-w>
