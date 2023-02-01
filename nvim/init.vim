@@ -60,14 +60,16 @@ set ignorecase
 set incsearch           " Incremental search
 set hlsearch            " Highlight search keyword.
 set cindent             " C-lang indentation
-set tabstop=4           " Set up indentation.
+" Set up indentation.
+set tabstop=4
 if expand("%:e") == "go"
     set softtabstop=0
     set noexpandtab
     set shiftwidth=8
-elseif expand("%:e") == "json"
+elseif expand("%:e") == "json" || expand("%:e") == "js" || expand("%:e") == "ts"
     set softtabstop=2
     set shiftwidth=2
+    set tabstop=2
 else
     set softtabstop=4
     set expandtab           " Save tab as space.
@@ -158,8 +160,8 @@ endfunction
 
 
 """ CoC
-let g:python3_host_prog = '/Users/user/miniforge3/envs/server/bin/python'
-let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-tsserver', 'coc-import-cost', 'coc-eslint', 'coc-html', 'coc-css', 'coc-emmet', 'coc-python', 'coc-sh', 'coc-yaml', 'coc-json', 'coc-docker', 'coc-markdownlint', 'coc-go', 'coc-pyright']
+let g:coc_global_extensions = ['coc-explorer', 'coc-ccls', 'coc-clangd', 'coc-cmake', 'coc-tsserver', 'coc-import-cost', 'coc-python', 'coc-sh', 'coc-yaml', 'coc-json', 'coc-docker', 'coc-markdownlint', 'coc-go', 'coc-pyright']
+let g:coc_global_extensions += ['coc-eslint', 'coc-html', 'coc-css', 'coc-emmet', 'coc-tslint-plugin', 'coc-styled-components', 'coc-react-refactor']
 let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets']
 " coc-pyright settings: https://github.com/fannheyward/coc-pyright/blob/master/package.json
 
