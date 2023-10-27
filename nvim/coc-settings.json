@@ -1,35 +1,64 @@
 {
-    "clangd.fallbackFlags": ["-std=c++17"],
-    "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.3/clangd_14.0.3/bin/clangd",
-    "coc.preferences.rootPatterns": [".git", "WORKSPACE", "BUILD"],
-    "diagnostic.errorSign": "EE",
-    "diagnostic.warningSign": "WW",
-    "diagnostic.infoSign": "II",
-    "diagnostic.hintSign": "HH",
-    "suggest.noselect": false,
-    "suggest.echodocSupport": true,
-    "codeLens.enable": true,
-    "signature.enable": true,
-    "suggest.preferCompleteThanJumpPlaceholder": true,
-    "eslint.autoFixOnSave": true,
-    "tsserver.implicitProjectConfig.experimentalDecorators": true,
-    "tsserver.log": "verbose",
-    "tsserver.trace.server": "verbose",
-    "tsserver.tsdk": ".yarn/sdks/typescript/lib",
-    "eslint.packageManager": "yarn",
-    "eslint.nodePath": ".yarn/sdks",
-    "workspace.workspaceFolderCheckCwd": false,
-    "python.pythonPath": "/Users/user/labsflow/bin/python",
-    "python.workspaceSymbols.exclusionPatterns": [],
-    "python.jediEnabled": false,
-    "python.linting.pylintEnabled": true,
-    "python.linting.mypyEnabled": true,
-    "python.linting.pylintUseMinimalCheckers": false,
-    "python.linting.pylintPath": "pylint",
-    "python.linting.pylintArgs": ["--max-line-length", "120"],
-	"python.analysis.diagnosticSeverityOverrides": {
-        "reportOptionalMemberAccess": "warning",
-        "reportGeneralTypeIssues": "warning",
-        "reportOptionalIterable": "warning"
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls-root", "compile_commands.json"],
+      "initializationOptions": {
+        "cache": {
+          "directory": ".ccls-cache"
+        },
+        "client": {
+          "snippetSupport": true
+        }
+      }
     }
+  },
+  "coc.preferences.rootPatterns": [".git", "WORKSPACE", "BUILD"],
+  "diagnostic.errorSign": "✖",
+  "diagnostic.hintSign": "➤",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.warningSign": "⚠",
+  "suggest.noselect": false,
+  "codeLens.enable": true,
+  "signature.enable": true,
+  "suggest.preferCompleteThanJumpPlaceholder": true,
+  "eslint.autoFixOnSave": true,
+  "tsserver.implicitProjectConfig.experimentalDecorators": true,
+  "tsserver.log": "verbose",
+  "tsserver.trace.server": "verbose",
+  "tsserver.tsdk": ".yarn/sdks/typescript/lib",
+  "eslint.packageManager": "yarn",
+  "eslint.nodePath": ".yarn/sdks",
+  "workspace.workspaceFolderCheckCwd": false,
+  "python.pythonPath": "/home/eunjin/labsflow/bin/python",
+  "python.analysis.stubPath": "/home/eunjin/labsflow/lib/python3.8/site-packages",
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "strict",
+  "python.workspaceSymbols.exclusionPatterns": [],
+  "python.jediEnabled": false,
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyArgs": ["--disallow-untyped-decorators"],
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintUseMinimalCheckers": false,
+  "python.linting.pylintPath": "pylint",
+  "python.linting.pylintArgs": ["--max-line-length", "120"],
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportOptionalMemberAccess": "warning",
+    "reportGeneralTypeIssues": "warning",
+    "reportOptionalIterable": "warning",
+    "reportUnknownVariableType": "none",
+    "reportUnknownMemberType": "none",
+    "reportUnknownArgumentType": "none",
+    "reportUnknownParameterType": "none"
+  },
+  "yaml.hover": true,
+  "yaml.completion": true,
+  "yaml.schemas": {
+    "kubernetes": "*.yaml"
+  },
+  "markdownlint.config": {
+    "line_length": false
+  }
 }

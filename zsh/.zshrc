@@ -1,14 +1,22 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/$USER/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
+DEFAULT_USER=$USER
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -23,14 +31,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -45,6 +52,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -68,7 +78,14 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+# plugins=(git)
+
+# cd ~/.oh-my-zsh/plugins
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+# git clone https://github.com/zsh-users/zsh-autosuggestions.git
+source $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,55 +115,27 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Key binding
-bindkey "[D" backward-word
-bindkey "[C" forward-word
-bindkey "^[a" beginning-of-line
-bindkey "^[e" end-of-line
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# Type commands as like below:
-#   cd ~/.oh-my-zsh/plugins
-#   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-#   echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
-#   git clone https://github.com/zsh-users/zsh-autosuggestions.git
-#   echo "source ${(q-)PWD}/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Set up C++ for coc.nvim
-export PATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH
-export CPLUS_INCLUDE_PATH=/usr/local/Cellar/llvm/11.0.0/include/c++/v1:/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include
-export PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include:$PATH
+# Set up fzf
+#export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --inline-info'
+#plugins=(fzf)
 
-# Set up pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Set up docker commands
-alias dp='docker ps -a'
-alias di='docker images'
-alias dr='docker rm'
-alias ds='docker start'
-alias dst='docker stop'
-alias dl='docker logs -f'
-alias drs='docker restart'
+# MacOS
+### Key binding
+#bindkey "[D" backward-word
+#bindkey "[C" forward-word
+#bindkey "^[a" beginning-of-line
+#bindkey "^[e" end-of-line
 
-# Set up git commands
-alias gs="git status"
-alias gc="git commit -m"
-alias gca="git commit --amend"
-alias gl="git log"
-alias gck="git checkout"
-alias gp="git push"
-alias gpl="git pull"
-alias gm="git merge"
-alias gr="git rebase"
-alias gb="git branch"
+### Set up C++ for coc.nvim
+#export PATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH
+#export CPLUS_INCLUDE_PATH=/usr/local/Cellar/llvm/11.0.0/include/c++/v1:/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include
+#export PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include:$PATH
 
 # Set up local commands
 replaceAll() {
@@ -178,26 +167,40 @@ alias re="replaceAll"
 alias vi="nvim"
 alias vim="nvim"
 
-# Set up fzf
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
-plugins=(fzf)
+# Set up docker commands
+alias dp='docker ps -a'
+alias dv='docker volume'
+alias dn='docker network'
+alias di='docker images'
+alias dr='docker rm'
+alias ds='docker start'
+alias dst='docker stop'
+alias dl='docker logs -f'
+alias drs='docker restart'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up git commands
+alias gs="git status"
+alias gc="git commit -m"
+alias gca="git commit --amend"
+alias gl="git log"
+alias gck="git checkout"
+alias gp="git push"
+alias gpl="git pull"
+alias gm="git merge"
+alias gr="git rebase"
+alias gb="git branch"
 
-# Set up go
-export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin:$HOME/bin
+# for ubuntu
+alias fd="fdfind"
 
-# Kubernetes
-export KUBECONFIG=$HOME/.kube/kubeconfig.yaml:$HOME/.kube/kubeconfig-real.yaml
-alias k=kubectl
-alias dev="k config use-context dev"
-alias qa="k config use-context qa"
-alias stage="k config use-context stage"
-alias real="k config use-context real"
-
-export TERM=xterm-256color
 export EDITOR=vim
 export K9S_EDITOR=vim
 
-# shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# JAVA
+#export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+#export PATH=$PATH:$JAVA_HOME/bin
+
+# For Jekyll, Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
+

@@ -110,7 +110,8 @@ endif
 set foldlevel=99
 set ruler               " Mark the current cursor.
 set cursorline
-set clipboard+=unnamed  " Allow to copy & paste
+"set clipboard+=unnamed  " Allow to copy & paste
+set clipboard+=unnamedplus  " Allow to copy & paste
 " Put cursor at the last modified location.
 au BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -171,9 +172,12 @@ let g:coc_global_extensions += ['https://github.com/andys8/vscode-jest-snippets'
 " coc-pyright settings: https://github.com/fannheyward/coc-pyright/blob/master/package.json
 
 " for c tag in CocList, before using it, brew install ctags-exuberant
+" In ubuntu, sudo apt-get update && sudo apt-get install -y exuberant-ctags
 " cd ~/.config/coc/extensions/node_modules/coc-ccls
 " ln -s node_modules/ws/lib lib
 " :CocCommand cland.install
+" If it doesn't work, see https://gist.github.com/zeta709/38d436754670ae52ced4a3ea33c939a2
+" sudo apt install ccls clang libclang-dev llvm-dev rapidjson-dev cmake
 let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'"
 
 
@@ -222,6 +226,8 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> sd :call <SID>show_documentation()<CR>
+" Coc : Replace.
+nmap <Leader>rn <Plug>(coc-rename)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -258,6 +264,7 @@ nmap <Leader>gb :Git blame<CR>
 nmap <Leader>gr :Git remove<CR>
 nmap <Leader>gpl :Git pull<CR>
 nmap <Leader>gdf :Git vdiff<CR>
+nmap <Leader>gal :Git add --all<CR>
 
 " Telescope
 nmap <silent><nowait>ff :<C-u>Telescope find_files<cr>
@@ -300,3 +307,5 @@ nmap <leader>d :<C-u>call vimspector#DownFrame()<cr>
 
 " Shortcut
 nnoremap <C-w> <C-w><C-w>
+
+nmap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
